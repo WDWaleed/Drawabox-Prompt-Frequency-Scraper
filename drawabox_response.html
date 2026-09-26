@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="//drawabox.com/">
+    <title>Drawabox</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,500,600,700');
+        html,body {
+            height:99%;
+            font-family:'Open Sans',sans-serif;
+        }
+
+        .wrapper {
+            display:flex;
+            justify-content:center;
+            /*align-items:center;*/
+            width:100%;
+            height:calc(100% - 5rem);
+            padding-top:5rem;
+        }
+
+        .inner {
+            display:flex;
+            justify-content:center;
+            max-width:960px;
+        }
+
+        .comfy {
+            margin-right:2rem;
+        }
+
+        @media (max-width:700px) {
+            .inner {
+                display:block;
+            }
+
+            .comfy {
+                margin:0 auto;
+                text-align:center;
+            }
+
+            h1 {
+                text-align:center;
+            }
+        }
+
+        .spacer {
+            height:200px;
+        }
+
+        a {
+            text-decoration:none;
+        }
+
+        span {
+            display:block;
+            text-align:center;
+        }
+
+        .collapsed {
+            display:none;
+        }
+    </style>
+    <script src="thirdparty/jquery/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="inner">
+        <div class="comfy"><img src="https://d15v304a6xpq4b.cloudfront.net/assets/images/uncomfy/Uncomfy_Alert.png" /></div>
+        <div class="message">
+            <h1>One moment please</h1>
+            <p>Please wait a second or two as we gather our pens and loose scraps of paper...</p>
+        </div>
+        <div class="spacer"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    let split = window.location.href.split('?');
+    let currentPage = split[0];
+    if (split.length > 1) currentPage += '?' + split[1] + '&c';
+    else currentPage += '?c';
+    var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (!timezone) timezone = 'UTC';
+    $.ajax({
+        type: "GET",
+        url: "/backend/settimezone.php",
+        data: 'timezone='+ timezone,
+        success: function(){
+            window.location.href = currentPage;
+        }
+    });
+</script>
+</body>
+</html>
